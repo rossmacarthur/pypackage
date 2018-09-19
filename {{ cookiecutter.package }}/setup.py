@@ -49,12 +49,18 @@ test_requirements = [
     'pytest-cov'
 ]
 
+package_requirements = [
+    'twine'
+]
+
 setup(
     name='{{ cookiecutter.package }}',
     packages=['{{ cookiecutter.slug }}'],
     version=version,
     install_requires=install_requirements,
-    extras_require={'linting': lint_requirements, 'testing': test_requirements},
+    extras_require={'linting': lint_requirements,
+                    'testing': test_requirements,
+                    'packaging': package_requirements},
     python_requires='>=3.4',
 
     author='{{ cookiecutter.author_name }}',
