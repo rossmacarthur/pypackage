@@ -29,11 +29,15 @@ def find_version():
 
 
 version = find_version()
+
 url = 'https://github.com/{{ cookiecutter.author_github_username }}/{{ cookiecutter.slug }}'
+
 long_description = read('README.rst')
 
 install_requirements = [
-
+{%- if cookiecutter.command_line_interface == 'yes' %}
+    'click>=6.6'
+{%- endif %}
 ]
 
 lint_requirements = [
@@ -53,6 +57,15 @@ package_requirements = [
     'twine'
 ]
 
+{%- if cookiecutter.command_line_interface == 'yes' %}
+
+entry_points = {
+    'console_scripts': [
+        '{{ cookiecutter.package }}-cli={{ cookiecutter.slug }}.cli:cli'
+    ]
+}
+{%- endif %}
+
 setup(
     name='{{ cookiecutter.package }}',
     packages=['{{ cookiecutter.slug }}'],
@@ -62,6 +75,9 @@ setup(
                     'testing': test_requirements,
                     'packaging': package_requirements},
     python_requires='>=3.4',
+{%- if cookiecutter.command_line_interface == 'yes' %}
+    entry_points=entry_points,
+{%- endif %}
 
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',

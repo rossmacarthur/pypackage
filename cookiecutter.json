@@ -6,5 +6,6 @@
   "slug": "{{ cookiecutter.name.lower().replace(' ', '_').replace('-', '_') }}",
   "package": "{{ cookiecutter.slug.replace('_', '-') }}",
   "description": "Behold My Awesome Project!",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "command_line_interface": ["yes", "no"]
 }
