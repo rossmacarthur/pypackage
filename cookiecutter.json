@@ -1,0 +1,10 @@
+{
+  "author_name": "Ross MacArthur",
+  "author_email": "macarthur.ross@gmail.com",
+  "author_github_username": "{{ cookiecutter.author_name.lower().replace(' ', '') }}",
+  "name": "My Awesome Project",
+  "slug": "{{ cookiecutter.name.lower().replace(' ', '_').replace('-', '_') }}",
+  "package": "{{ cookiecutter.slug.replace('_', '-') }}",
+  "description": "Behold My Awesome Project!",
+  "version": "0.1.0"
+}
