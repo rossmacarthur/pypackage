@@ -32,7 +32,7 @@ version = find_version()
 
 url = 'https://github.com/{{ cookiecutter.author_github_username }}/{{ cookiecutter.slug }}'
 
-long_description = read('README.rst')
+long_description = read('README.md')
 
 install_requirements = [
 {%- if cookiecutter.command_line_interface == 'yes' %}
@@ -83,6 +83,7 @@ setup(
     author_email='{{ cookiecutter.author_email }}',
     description='{{ cookiecutter.description }}',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     license='MIT',
     keywords='{{ cookiecutter.slug }}',
     url=url,
