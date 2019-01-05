@@ -1,64 +1,36 @@
+"""
+Setup file for {{ cookiecutter.name }}.
+"""
+
 import io
 import os
 import re
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
-def read(*path):
-    """
-    Cross-platform Python 2/3 file reading.
-    """
-    filename = os.path.join(os.path.dirname(__file__), *path)
+here = os.path.abspath(os.path.dirname(__file__))
 
-    with io.open(filename, encoding='utf8') as f:
-        return f.read()
+with io.open(os.path.join(here, 'src', '{{ cookiecutter.slug }}', '__init__.py'), encoding='utf8') as f:
+    about_text = f.read()
 
+metadata = {
+    key: re.search(r'__' + key + r'__ = ["\'](.*?)["\']', about_text).group(1)
+    for key in ('title', 'version', 'url', 'author', 'author_email', 'license', 'description')
+}
 
-def find_version():
-    """
-    Regex search __init__.py so that we do not have to import.
-    """
-    text = read('{{ cookiecutter.slug }}', '__init__.py')
-    match = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]', text, re.M)
+metadata['name'] = metadata.pop('title')
 
-    if match:
-        return match.group(1)
+with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
+    metadata['long_description'] = f.read()
 
-    raise RuntimeError('Unable to find version string.')
-
-
-version = find_version()
-
-url = 'https://github.com/{{ cookiecutter.author_github_username }}/{{ cookiecutter.slug }}'
-
-long_description = read('README.md')
-
-install_requirements = [
+# Primary requirements
+install_requires = [
 {%- if cookiecutter.command_line_interface == 'yes' %}
-    'click>=6.6'
+    'click>=7.0'
 {%- endif %}
 ]
-
-lint_requirements = [
-    'flake8',
-    'flake8-isort',
-    'flake8-quotes',
-    'mccabe',
-    'pep8-naming'
-]
-
-test_requirements = [
-    'pytest',
-    'pytest-cov'
-]
-
-package_requirements = [
-    'twine'
-]
-
 {%- if cookiecutter.command_line_interface == 'yes' %}
-
 entry_points = {
     'console_scripts': [
         '{{ cookiecutter.package }}-cli={{ cookiecutter.slug }}.cli:cli'
@@ -66,37 +38,50 @@ entry_points = {
 }
 {%- endif %}
 
+# Development requirements
+lint_requires = [
+    'flake8',
+    'flake8-docstrings',
+    'flake8-isort',
+    'flake8-per-file-ignores',
+    'flake8-quotes',
+    'pep8-naming'
+]
+test_requires = [
+    'pytest',
+    'pytest-cov',
+]
+
 setup(
-    name='{{ cookiecutter.package }}',
-    packages=['{{ cookiecutter.slug }}'],
-    version=version,
-    install_requires=install_requirements,
-    extras_require={'linting': lint_requirements,
-                    'testing': test_requirements,
-                    'packaging': package_requirements},
+    # Options
+    install_requires=install_requires,
+    extras_require={
+        'dev.lint': lint_requires,
+        'dev.test': test_requires
+    },
     python_requires='>=3.4',
+    packages=find_packages('src'),
 {%- if cookiecutter.command_line_interface == 'yes' %}
     entry_points=entry_points,
 {%- endif %}
+    package_dir={'': 'src'},
+    py_modules=['{{ cookiecutter.slug }}'],
 
-    author='{{ cookiecutter.author_name }}',
-    author_email='{{ cookiecutter.author_email }}',
-    description='{{ cookiecutter.description }}',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    license='MIT',
-    keywords='{{ cookiecutter.slug }}',
-    url=url,
-    download_url='{url}/archive/{version}.tar.gz'.format(url=url, version=version),
+    # Metadata
+    download_url='{url}/archive/{version}.tar.gz'.format(**metadata),
+    project_urls={
+        'Issue Tracker': '{url}/issues'.format(**metadata)
+    },
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7'
-    ]
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: Implementation :: CPython',
+    ],
+    **metadata
 )
