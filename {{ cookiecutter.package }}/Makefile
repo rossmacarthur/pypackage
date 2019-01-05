@@ -1,6 +1,5 @@
-.PHONY: help clean venv install install-all lint sort-imports test dist release
+.PHONY: help clean install install-all lint sort-imports test dist release
 
-PYTHON := python3
 VIRTUAL_ENV := $(or $(VIRTUAL_ENV), $(VIRTUAL_ENV), venv)
 
 help: ## Show this message and exit.
@@ -11,14 +10,11 @@ clean: ## Remove all build artifacts.
 	rm -rf build dist wheels venv *.egg-info
 	find . \( -name *.pyc -o -name *.pyo -o -name __pycache__ \) -exec rm -rf {} +
 
-venv: ## Create virtualenv.
-	virtualenv --python=$(PYTHON) venv
-
 install: ## Install package.
 	$(VIRTUAL_ENV)/bin/pip install -e .
 
 install-all: ## Install package and development dependencies.
-	$(VIRTUAL_ENV)/bin/pip install -e ".[linting,testing,packaging]"
+	$(VIRTUAL_ENV)/bin/pip install -e ".[dev.lint,dev.test]"
 
 lint: ## Run all lints.
 	$(VIRTUAL_ENV)/bin/flake8 --max-complexity 10 .

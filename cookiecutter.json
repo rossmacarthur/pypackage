@@ -1,6 +1,6 @@
 {
   "author_name": "Ross MacArthur",
-  "author_email": "macarthur.ross@gmail.com",
+  "author_email": "ross@macarthur.io",
   "author_github_username": "{{ cookiecutter.author_name.lower().replace(' ', '') }}",
   "name": "My Awesome Project",
   "slug": "{{ cookiecutter.name.lower().replace(' ', '_').replace('-', '_') }}",
