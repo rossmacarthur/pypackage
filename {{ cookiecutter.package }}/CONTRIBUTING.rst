@@ -68,4 +68,3 @@ Development process
 9. Submit a pull request on GitHub.
 
 .. _{{ cookiecutter.package }}: https://github.com/{{ cookiecutter.author_github_username }}/{{ cookiecutter.package }}
-
