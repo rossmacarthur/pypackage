@@ -19,12 +19,18 @@ If you have the chance, before reporting a bug, please search existing issues,
 as it's possible that someone else has already reported your error. It's fine if
 you accidentally file a duplicate report.
 
-Fixing bugs, implementing features, or writing documentation
-------------------------------------------------------------
+Pull Requests
+-------------
 
 If you would like to fix a bug, implement a feature, or simply improve this
 project's documentation then you should fork this repository and submit a pull
 request.
+
+Please make sure it meets the following guidelines.
+
+- Includes tests for the code you are adding.
+- Builds on all supported Python versions.
+- Updates the documentation and RELEASES file where relevant.
 
 1. Fork the ``{{ cookiecutter.package }}`` repository on GitHub.
 
@@ -52,9 +58,4 @@ request.
     git commit -m "A detailed description of your changes"
     git push origin name-of-your-bugfix-or-feature
 
-9. Submit a pull request on GitHub. Please make sure it meets the following
-   guidelines.
-
-- Includes tests for the code you are adding.
-- Builds on all supported Python versions.
-- Updates the documentation and RELEASES file where relevant.
+9. Submit a pull request on GitHub.
