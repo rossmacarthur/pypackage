@@ -7,5 +7,7 @@
   "package": "{{ cookiecutter.slug.replace('_', '-') }}",
   "description": "Behold My Awesome Project!",
   "version": "0.1.0",
+  "sphinx_documentation": ["yes", "no"],
   "command_line_interface": ["yes", "no"]
 }
+

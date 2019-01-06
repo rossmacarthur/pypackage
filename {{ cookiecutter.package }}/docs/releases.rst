@@ -1,4 +1,4 @@
 Releases
---------
+========
 
 .. include:: ../RELEASES.rst

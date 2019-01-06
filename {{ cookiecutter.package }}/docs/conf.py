@@ -41,3 +41,4 @@ html_sidebars = {
     ]
 }
 html_static_path = ['static']
+
