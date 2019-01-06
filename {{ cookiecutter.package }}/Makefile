@@ -1,4 +1,5 @@
-.PHONY: help clean install install-all lint sort-imports test dist release
+.PHONY: help clean install install-dev install-all lint sort-imports \
+		test docs docs-clean docs-open dist release
 
 VIRTUAL_ENV := $(or $(VIRTUAL_ENV), $(VIRTUAL_ENV), venv)
 
@@ -6,15 +7,18 @@ help: ## Show this message and exit.
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} \
 	/^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-clean: ## Remove all build artifacts.
+clean: docs-clean ## Remove all build artifacts.
 	rm -rf build dist wheels
 	find . \( -name *.pyc -o -name *.pyo -o -name __pycache__ -o -name *.egg-info \) -exec rm -rf {} +
 
 install: ## Install package.
 	$(VIRTUAL_ENV)/bin/pip install -e .
 
-install-all: ## Install package and development dependencies.
+install-dev: ## Install package and linting and testing dependencies.
 	$(VIRTUAL_ENV)/bin/pip install -e ".[dev.lint,dev.test]"
+
+install-all: install-dev ## Install package and all development dependencies.
+	$(VIRTUAL_ENV)/bin/pip install sphinx twine
 
 lint: ## Run all lints.
 	$(VIRTUAL_ENV)/bin/flake8 --max-complexity 10 .
@@ -24,6 +28,15 @@ sort-imports: ## Sort import statements according to isort configuration.
 
 test: ## Run all tests.
 	$(VIRTUAL_ENV)/bin/pytest -vv --cov={{ cookiecutter.slug }} --cov-report term-missing tests
+
+docs: ## Compile docs.
+	$(MAKE) -C docs html
+
+docs-clean: ## Clean docs.
+	$(MAKE) -C docs clean
+
+docs-open: docs ## Compile and open the docs.
+	open docs/_build/html/index.html
 
 dist: clean ## Build source and wheel package.
 	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel

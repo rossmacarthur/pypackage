@@ -1,5 +1,5 @@
 {{ cookiecutter.package }}
-{{ '-' * (cookiecutter.package | length) }}
+{{ '=' * (cookiecutter.package | length) }}
 
 {{ cookiecutter.description }}
 
