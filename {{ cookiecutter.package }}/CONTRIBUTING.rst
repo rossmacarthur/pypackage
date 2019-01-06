@@ -26,7 +26,7 @@ If you would like to fix a bug, implement a feature, or simply improve this
 project's documentation then you should fork this repository and submit a pull
 request.
 
-1. Fork the ``{{ cookiecutter.package }}`` repo on GitHub.
+1. Fork the ``{{ cookiecutter.package }}`` repository on GitHub.
 
 2. Clone your fork locally::
 
