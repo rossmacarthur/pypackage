@@ -39,14 +39,14 @@ Your pull request needs to meet the following guidelines:
 Development process
 ~~~~~~~~~~~~~~~~~~~
 
-1. Fork the ``{{ cookiecutter.package }}`` repository on GitHub.
+1. Fork the `{{ cookiecutter.package }}_` repository on GitHub.
 
 2. Clone your fork locally::
 
     git clone git@github.com:your_name_here/{{ cookiecutter.package }}.git
 
 3. Setup and activate your virtualenv using pyenv, virtualenvwrapper, or
-   similar. You can use `make install-all` to install the package and all
+   similar. You can use ``make install-all`` to install the package and all
    development dependencies into your virtualenv.
 
 4. Create a branch for local development::
@@ -66,3 +66,5 @@ Development process
     git push origin name-of-your-bugfix-or-feature
 
 9. Submit a pull request on GitHub.
+
+.. _{{ cookiecutter.package }}: https://github.com/{{ cookiecutter.author_github_username }}/{{ cookiecutter.package }}
