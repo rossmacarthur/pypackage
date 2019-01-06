@@ -75,7 +75,6 @@ setup(
     entry_points=entry_points,
 {%- endif %}
     package_dir={'': 'src'},
-    py_modules=['{{ cookiecutter.slug }}'],
 
     # Metadata
     download_url='{url}/archive/{version}.tar.gz'.format(**metadata),
