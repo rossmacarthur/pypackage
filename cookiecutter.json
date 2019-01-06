@@ -10,4 +10,3 @@
   "sphinx_documentation": ["yes", "no"],
   "command_line_interface": ["yes", "no"]
 }
-

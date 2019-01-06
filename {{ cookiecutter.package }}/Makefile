@@ -41,7 +41,7 @@ dist: clean ## Build source and wheel package.
 release: dist ## Package and upload a release.
 	$(VIRTUAL_ENV)/bin/twine upload dist/*
 
-{% if cookiecutter.sphinx_documentation == 'yes' -%}
+{%- if cookiecutter.sphinx_documentation == 'yes' %}
 docs: ## Compile docs.
 	$(MAKE) -C docs html
 
