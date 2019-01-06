@@ -1,6 +1,7 @@
 from click.testing import CliRunner
 
-from {{ cookiecutter.slug }} import __version__, cli
+from {{ cookiecutter.slug }} import __version__
+from {{ cookiecutter.slug }}.cli import cli
 
 
 def test_cli_version():
