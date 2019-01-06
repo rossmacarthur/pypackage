@@ -1,9 +1,7 @@
 .PHONY: help clean install install-dev install-all \
-		lint sort-imports test                     \
-{%- if cookiecutter.sphinx_documentation == 'yes' %}
-		docs docs-clean docs-open                  \
+		lint sort-imports test dist release{% if cookiecutter.sphinx_documentation == 'yes' %}        \
+		docs docs-clean docs-open
 {%- endif %}
-		dist release
 
 VIRTUAL_ENV := $(or $(VIRTUAL_ENV), $(VIRTUAL_ENV), venv)
 
@@ -11,10 +9,10 @@ help: ## Show this message and exit.
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} \
 	/^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-{%- if cookiecutter.sphinx_documentation == 'yes' %}
+{% if cookiecutter.sphinx_documentation == 'yes' -%}
 clean: docs-clean ## Remove all build artifacts.
 {%- else %}
-clean:
+clean: ## Remove all build artifacts.
 {%- endif %}
 	rm -rf build dist wheels
 	find . \( -name *.pyc -o -name *.pyo -o -name __pycache__ -o -name *.egg-info \) -exec rm -rf {} +
@@ -37,7 +35,13 @@ sort-imports: ## Sort import statements according to isort configuration.
 test: ## Run all tests.
 	$(VIRTUAL_ENV)/bin/pytest -vv --cov={{ cookiecutter.slug }} --cov-report term-missing tests
 
-{%- if cookiecutter.sphinx_documentation == 'yes' %}
+dist: clean ## Build source and wheel package.
+	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
+
+release: dist ## Package and upload a release.
+	$(VIRTUAL_ENV)/bin/twine upload dist/*
+
+{% if cookiecutter.sphinx_documentation == 'yes' -%}
 docs: ## Compile docs.
 	$(MAKE) -C docs html
 
@@ -46,11 +50,4 @@ docs-clean: ## Clean docs.
 
 docs-open: docs ## Compile and open the docs.
 	open docs/_build/html/index.html
-
 {%- endif %}
-dist: clean ## Build source and wheel package.
-	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
-
-release: dist ## Package and upload a release.
-	$(VIRTUAL_ENV)/bin/twine upload dist/*
-
