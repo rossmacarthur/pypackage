@@ -26,11 +26,18 @@ If you would like to fix a bug, implement a feature, or simply improve this
 project's documentation then you should fork this repository and submit a pull
 request.
 
-Please make sure it meets the following guidelines.
+Guidelines
+~~~~~~~~~~
+
+Your pull request needs to meet the following guidelines:
 
 - Includes tests for the code you are adding.
+- Passes all lints and tests.
 - Builds on all supported Python versions.
 - Updates the documentation and RELEASES file where relevant.
+
+Development process
+~~~~~~~~~~~~~~~~~~~
 
 1. Fork the ``{{ cookiecutter.package }}`` repository on GitHub.
 
