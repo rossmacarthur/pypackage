@@ -6,7 +6,7 @@
 
 First install [Cookiecutter][cookiecutter]
 ```
-pip install -U cookiecutter
+pip install cookiecutter
 ```
 
 Then generate a new Python package project
