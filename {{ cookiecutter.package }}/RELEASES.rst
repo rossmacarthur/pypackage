@@ -1,5 +1,5 @@
 Version {{ cookiecutter.version }}
-{{ '-' * (8 + cookiecutter.version | length) }}
+{{ '=' * (8 + cookiecutter.version | length) }}
 
 *Unreleased*
 

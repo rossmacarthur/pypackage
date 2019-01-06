@@ -1,9 +1,13 @@
-include CHANGES.rst
 include LICENSE
 include Makefile
 include README.rst
-
+include RELEASES.rst
+{% if cookiecutter.sphinx_documentation == 'yes' %}
+recursive-include docs *
+{%- endif %}
 recursive-include tests *
-
+{% if cookiecutter.sphinx_documentation == 'yes' %}
+exclude docs/_build
+{% endif %}
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
