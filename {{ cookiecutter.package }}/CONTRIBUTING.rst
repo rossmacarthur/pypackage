@@ -39,7 +39,7 @@ Your pull request needs to meet the following guidelines:
 Development process
 ~~~~~~~~~~~~~~~~~~~
 
-1. Fork the `{{ cookiecutter.package }}_` repository on GitHub.
+1. Fork the `{{ cookiecutter.package }}`_ repository on GitHub.
 
 2. Clone your fork locally::
 
