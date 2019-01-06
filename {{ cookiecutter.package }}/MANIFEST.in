@@ -8,7 +8,6 @@ recursive-include docs *
 recursive-include tests *
 {% if cookiecutter.sphinx_documentation == 'yes' %}
 exclude docs/_build
-{%- endif %}
-
+{% endif %}
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
