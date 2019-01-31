@@ -1,4 +1,3 @@
-import doctest
 from datetime import datetime
 
 import {{ cookiecutter.slug }}

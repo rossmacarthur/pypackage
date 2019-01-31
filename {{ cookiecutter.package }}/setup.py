@@ -50,10 +50,9 @@ entry_points = {
 
 # Development requirements
 lint_requires = [
-    'flake8',
+    'flake8 >=3.7.0',
     'flake8-docstrings',
     'flake8-isort',
-    'flake8-per-file-ignores',
     'flake8-quotes',
     'pep8-naming'
 ]
