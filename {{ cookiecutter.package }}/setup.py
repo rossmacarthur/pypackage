@@ -15,7 +15,11 @@ def get_metadata():
     """
     here = os.path.abspath(os.path.dirname(__file__))
     init_path = os.path.join(here, 'src', '{{ cookiecutter.slug }}', '__init__.py')
+  {%- if cookiecutter.readme_markup_language == 'reStructuredText' %}
     readme_path = os.path.join(here, 'README.rst')
+  {%- elif cookiecutter.readme_markup_language == 'Markdown' %}
+    readme_path = os.path.join(here, 'README.md')
+  {%- endif %}
 
     with io.open(init_path, encoding='utf-8') as f:
         about_text = f.read()
@@ -28,6 +32,9 @@ def get_metadata():
 
     with io.open(readme_path, encoding='utf-8') as f:
         metadata['long_description'] = f.read()
+      {%- if cookiecutter.readme_markup_language == 'Markdown' %}
+        metadata['long_description_content_type'] = 'text/markdown'
+      {%- endif %}
 
     return metadata
 
@@ -37,7 +44,7 @@ metadata = get_metadata()
 # Primary requirements
 install_requires = [
 {%- if cookiecutter.command_line_interface == 'yes' %}
-    'click>=7.0'
+    'click >=7.0'
 {%- endif %}
 ]
 {%- if cookiecutter.command_line_interface == 'yes' %}

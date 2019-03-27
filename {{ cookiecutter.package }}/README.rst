@@ -22,8 +22,9 @@ You can use it like this
     import {{ cookiecutter.slug }}
 
     # TODO: demonstrate example
-
+{% if cookiecutter.license_file == 'yes' %}
 License
 -------
 
 This project is licensed under the MIT License.
+{% endif -%}
