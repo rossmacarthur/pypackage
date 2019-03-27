@@ -7,6 +7,11 @@
   "package": "{{ cookiecutter.slug.replace('_', '-') }}",
   "description": "Behold My Awesome Project!",
   "version": "0.1.0",
+  "readme_markup_language": ["reStructuredText", "Markdown"],
+  "license_file": ["yes", "no"],
   "sphinx_documentation": ["yes", "no"],
-  "command_line_interface": ["yes", "no"]
+  "command_line_interface": ["yes", "no"],
+  "makefile": ["yes", "no"],
+  "contributing_file": ["yes", "no"],
+  "releases_file": ["yes", "no"]
 }
