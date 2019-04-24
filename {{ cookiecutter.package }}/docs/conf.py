@@ -5,7 +5,7 @@ import {{ cookiecutter.slug }}
 
 # Project configuration
 project = '{{ cookiecutter.name }}'
-copyright = '%d, %s' % (datetime.now().year, {{ cookiecutter.slug }}.__author__)
+copyright = ' {:d}, {}'.format(datetime.now().year, {{ cookiecutter.slug }}.__author__)
 author = {{ cookiecutter.slug }}.__author__
 version = {{ cookiecutter.slug }}.__version__
 release = {{ cookiecutter.slug }}.__version__
