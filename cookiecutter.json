@@ -7,6 +7,8 @@
   "package": "{{ cookiecutter.slug.replace('_', '-') }}",
   "description": "Behold My Awesome Project!",
   "version": "0.1.0",
+  "package_style": ["package", "module"],
+  "package_directory": ["src", "."],
   "readme_markup_language": ["reStructuredText", "Markdown"],
   "license_file": ["yes", "no"],
   "sphinx_documentation": ["yes", "no"],

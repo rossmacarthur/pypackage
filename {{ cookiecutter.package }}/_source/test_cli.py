@@ -1,7 +1,11 @@
 from click.testing import CliRunner
 
 from {{ cookiecutter.slug }} import __version__
+{%- if cookiecutter.package_style == 'module' %}
+from {{ cookiecutter.slug }}_cli import cli
+{%- elif cookiecutter.package_style == 'package' %}
 from {{ cookiecutter.slug }}.cli import cli
+{%- endif %}
 
 
 def test_cli_version():

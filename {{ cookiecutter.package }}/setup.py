@@ -5,8 +5,11 @@ Setup file for {{ cookiecutter.name }}.
 import io
 import os
 import re
-
+{% if cookiecutter.package_style == 'module' %}
+from setuptools import setup
+{%- elif cookiecutter.package_style == 'package' %}
 from setuptools import find_packages, setup
+{%- endif %}
 
 
 def get_metadata():
@@ -14,7 +17,17 @@ def get_metadata():
     Return metadata for {{ cookiecutter.name }}.
     """
     here = os.path.abspath(os.path.dirname(__file__))
+
+  {%- if cookiecutter.package_directory == 'src' and cookiecutter.package_style == 'module' %}
+    init_path = os.path.join(here, 'src', '{{ cookiecutter.slug }}.py')
+  {%- elif cookiecutter.package_directory == 'src' and cookiecutter.package_style == 'package' %}
     init_path = os.path.join(here, 'src', '{{ cookiecutter.slug }}', '__init__.py')
+  {%- elif cookiecutter.package_style == 'module' %}
+    init_path = os.path.join(here, '{{ cookiecutter.slug }}.py')
+  {%- elif cookiecutter.package_style == 'package' %}
+    init_path = os.path.join(here, '{{ cookiecutter.slug }}', '__init__.py')
+  {%- endif %}
+
   {%- if cookiecutter.readme_markup_language == 'reStructuredText' %}
     readme_path = os.path.join(here, 'README.rst')
   {%- elif cookiecutter.readme_markup_language == 'Markdown' %}
@@ -32,6 +45,7 @@ def get_metadata():
 
     with io.open(readme_path, encoding='utf-8') as f:
         metadata['long_description'] = f.read()
+
       {%- if cookiecutter.readme_markup_language == 'Markdown' %}
         metadata['long_description_content_type'] = 'text/markdown'
       {%- endif %}
@@ -50,7 +64,11 @@ install_requires = [
 {%- if cookiecutter.command_line_interface == 'yes' %}
 entry_points = {
     'console_scripts': [
+      {%- if cookiecutter.package_style == 'module' %}
+        '{{ cookiecutter.package }}-cli={{ cookiecutter.slug }}_cli:cli'
+      {%- elif cookiecutter.package_style == 'package' %}
         '{{ cookiecutter.package }}-cli={{ cookiecutter.slug }}.cli:cli'
+      {%- endif %}
     ]
 }
 {%- endif %}
@@ -79,11 +97,28 @@ setup(
         'dev.test': test_requires
     },
     python_requires='>=3.4',
-    packages=find_packages('src'),
-{%- if cookiecutter.command_line_interface == 'yes' %}
-    entry_points=entry_points,
-{%- endif %}
+
+  {%- if cookiecutter.package_directory == 'src' %}
     package_dir={'': 'src'},
+  {%- endif -%}
+
+  {%- if cookiecutter.package_style == 'module' %}
+    {%- if cookiecutter.command_line_interface == 'yes' %}
+    py_modules=['{{ cookiecutter.slug }}', '{{ cookiecutter.slug }}_cli'],
+    {%- else %}
+    py_modules=['{{ cookiecutter.slug }}'],
+    {%- endif %}
+  {%- elif cookiecutter.package_style == 'package' %}
+    {%- if cookiecutter.package_directory == 'src' %}
+    packages=find_packages('src'),
+    {%- else %}
+    packages=find_packages(exclude=['docs', 'tests']),
+    {%- endif %}
+  {%- endif %}
+
+  {%- if cookiecutter.command_line_interface == 'yes' %}
+    entry_points=entry_points,
+  {%- endif %}
 
     # Metadata
     download_url='{url}/archive/{version}.tar.gz'.format(**metadata),
