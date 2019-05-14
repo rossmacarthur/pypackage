@@ -15,12 +15,13 @@ clean: ## Remove all build artifacts.
 	find . \( -name *.pyc -o -name *.pyo -o -name __pycache__ -o -name *.egg-info \) -exec rm -rf {} +
 
 .PHONY: venv
-venv: ## Create a virtualenv.
 ifeq ($(strip $(VIRTUAL_ENV)),)
 export VIRTUAL_ENV := venv
+venv: ## Create a virtualenv.
 	rm -rf venv
 	$(PYTHON) -m venv venv
 else
+venv:
 	@echo "Not creating virtualenv because VIRTUAL_ENV is set."
 endif
 
