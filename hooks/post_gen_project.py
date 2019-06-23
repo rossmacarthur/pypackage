@@ -51,7 +51,7 @@ def main():
     # Remove these files if the setting is equal to 'no'.
     remove_if_no('LICENSE', '{{ cookiecutter.license_file }}')
     remove_if_no('docs', '{{ cookiecutter.sphinx_documentation }}')
-    remove_if_no('Makefile', '{{ cookiecutter.makefile }}')
+    remove_if_no('Justfile', '{{ cookiecutter.justfile }}')
     remove_if_no('CONTRIBUTING.rst', '{{ cookiecutter.contributing_file }}')
     remove_if_no('RELEASES.rst', '{{ cookiecutter.releases_file }}')
 
